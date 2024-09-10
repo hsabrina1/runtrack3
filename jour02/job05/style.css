@@ -1,0 +1,20 @@
+/* Appliquer une taille minimale de 4096px au body */
+body {
+    min-height: 4096px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style pour le footer */
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: rgb(6, 75, 144); /* Couleur de départ */
+    color: white;
+    text-align: center;
+    line-height: 50px; /* Centrage vertical du texte */
+    font-size: 20px;
+}
