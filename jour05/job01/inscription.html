@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e8449;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group span.error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1e8449;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #145a32;
+        }
+
+        .form-inline {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-inline .form-group {
+            flex: 1;
+        }
+
+        .error-messages {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Inscription</h2>
+
+        <div class="error-messages" id="errorMessages">
+            <!-- Global error messages will be displayed here -->
+        </div>
+
+        <form id="signupForm">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" name="prenom" placeholder="Entrez votre prénom">
+                    <span class="error" id="prenom-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" placeholder="Entrez votre nom">
+                    <span class="error" id="nom-error"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Entrez votre email">
+                <span class="error" id="email-error"></span>
+            </div>
+
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe">
+                    <span class="error" id="password-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">Confirmer mot de passe</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmez votre mot de passe">
+                    <span class="error" id="confirm-password-error"></span>
+                </div>
+            </div>
+
+            <button type="button" onclick="validateForm()">S'inscrire</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let valid = true;
+            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+            document.getElementById('errorMessages').textContent = '';
+
+            const prenom = document.getElementById('prenom').value;
+            const nom = document.getElementById('nom').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (prenom.length < 3) {
+                document.getElementById('prenom-error').textContent = "La taille de votre prénom est trop petite";
+                valid = false;
+            }
+
+            if (nom.length < 3) {
+                document.getElementById('nom-error').textContent = "La taille de votre nom est trop petite";
+                valid = false;
+            }
+
+            if (!emailPattern.test(email)) {
+                document.getElementById('email-error').textContent = "Veuillez entrer un email valide";
+                valid = false;
+            }
+
+            if (!passwordPattern.test(password)) {
+                document.getElementById('password-error').textContent = "Le mot de passe doit contenir au moins 8 caractères, une lettre, un chiffre et un caractère spécial";
+                valid = false;
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById('confirm-password-error').textContent = "Les mots de passe ne correspondent pas";
+                valid = false;
+            }
+
+            if (!valid) {
+                document.getElementById('errorMessages').textContent = "Veuillez corriger les erreurs ci-dessus.";
+            } else {
+                alert('Formulaire validé avec succès !');
+            }
+        }
+    </script>
+
+</body>
+</html>
+
